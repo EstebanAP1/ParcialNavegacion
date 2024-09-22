@@ -29,14 +29,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import java.text.SimpleDateFormat
-import java.util.Calendar
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,6 +82,7 @@ fun PersonalData (navController: NavController) {
             Spacer(modifier = Modifier.padding(8.dp))
 
             Button(onClick = {
+                // Validación de datos de nombre y número
                 if (name.isNotEmpty() && number.length == 10) {
                     navController.navigate("Reservation/$name/$number")
                 }
@@ -113,6 +111,7 @@ fun Reservation(navController: NavController, name: String, number: String) {
         selectedDate.toString()
     }
 
+    // Formateamos la hora
     val time = "${timeState.hour}:${timeState.minute}"
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -128,7 +127,8 @@ fun Reservation(navController: NavController, name: String, number: String) {
             Spacer(modifier = Modifier.padding(8.dp))
 
             Button(onClick = {
-                if (date.isNotEmpty() && time.isNotEmpty()) {
+                // Validación de datos de fecha la fecha, la hora por defecto es 0:0
+                if (date.isNotEmpty()) {
                     navController.navigate("ReservationDetails/$name/$number/$date/$time")
                 }
             }) {
